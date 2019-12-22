@@ -12,7 +12,6 @@ Resources:
           - Id: Remove mail older than 30 days
             ExpirationInDays: 30
             Status: Enabled
-      # NotificationConfiguration:
       Tags:
         - Key: cost-center
           Value: mail-lancerin-com
@@ -32,3 +31,10 @@ Resources:
             Condition:
               StringEquals:
                 aws:Referer: "271223117946"
+
+Outputs:
+  LancerinComMailBucket:
+    Description: Bucket name for lancerin.com email
+    Value: lancerin-com-inbox-eu-west-1
+    Export: 
+      Name: !Sub '${AWS::StackName}-LancerinComMailBucket'
