@@ -1,0 +1,34 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: This contains the S3 bucket and policy for SES to receive emails for lancerin.com .
+
+Resources: 
+  LancerinComMailBucket:
+    Type: AWS::S3::Bucket
+    Properties: 
+      AccessControl: Private
+      BucketName: lancerin-com-inbox-eu-west-1
+      LifecycleConfiguration:
+        Rules:
+          - Id: Remove mail older than 30 days
+            ExpirationInDays: 30
+            Status: Enabled
+      # NotificationConfiguration:
+      Tags:
+        - Key: cost-center
+          Value: mail-lancerin-com
+
+  LancerinComMailBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref LancerinComMailBucket
+      PolicyDocument:
+        Statement:
+          - Sid: AllowSESPuts
+            Effect: Allow
+            Action: s3:PutObject
+            Principal:
+              Service: ses.amazonaws.com
+            Resource: !Sub '${LancerinComMailBucket.Arn}/*'
+            Condition:
+              StringEquals:
+                aws:Referer: "271223117946"
