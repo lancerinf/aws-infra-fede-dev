@@ -1,12 +1,13 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: This contains the S3 bucket and policy for SES to receive emails for lancerin.com .
+Description: This contains the shared setup for SES to receive and send emails for lancerin.com .
 
 Resources: 
   LancerinComMailBucket:
     Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
     Properties: 
       AccessControl: Private
-      BucketName: lancerin-com-inbox-eu-west-1
+      BucketName: lancerin-com-mail-eu-west-1
       LifecycleConfiguration:
         Rules:
           - Id: Remove mail older than 30 days
@@ -32,9 +33,29 @@ Resources:
               StringEquals:
                 aws:Referer: "271223117946"
 
+  LancerinComRecRuleSet:
+    Type: AWS::SES::ReceiptRuleSet
+    Properties: 
+      RuleSetName: receipt-rule-lancerin-com
+
+  LancerinComNotificationTopic:
+    Type: AWS::SNS::Topic
+    Properties: 
+      DisplayName: lancerin-com-notification-topic
+      Subscription: 
+        - Endpoint: federico.lancerin@gmail.com
+          Protocol: email
+      TopicName: lancerin-com-notification-topic
+
 Outputs:
   LancerinComMailBucket:
     Description: Bucket name for lancerin.com email
-    Value: lancerin-com-inbox-eu-west-1
+    Value: !Ref LancerinComMailBucket
     Export: 
       Name: !Sub '${AWS::StackName}-LancerinComMailBucket'
+
+  LancerinComRecRuleSet:
+    Description: Bucket name for lancerin.com email
+    Value: !Ref LancerinComRecRuleSet
+    Export: 
+      Name: !Sub '${AWS::StackName}-LancerinComRecRuleSet'

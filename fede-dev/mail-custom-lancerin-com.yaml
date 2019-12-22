@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: This template sets email rec and fwd for a specific email address
+
+Parameters:
+  EmailAddress:
+    Type: String
+    Default: federico@lancerin.com
+
+Resources:
+  LancerinComRecRule:
+    Type: AWS::SES::ReceiptRule
+    Properties:
+      Rule:
+        Actions:
+          - S3Action:
+              BucketName: !ImportValue 'mail-lancerin-com-LancerinComMailBucket'
+              ObjectKeyPrefix: !Sub inbox/${EmailAddress}
+        Enabled: true
+        Recipients:
+          - !Ref EmailAddress
+        ScanEnabled: true
+      RuleSetName: !ImportValue 'mail-lancerin-com-LancerinComRecRuleSet'
+
+  LancerinSmtpPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: !Sub 'smtp-restriction-${EmailAddress}'
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action: ses:SendRawEmail
+          Resource: "*"
+          Condition:
+            StringEquals:
+              ses:FromAddress: !Sub '${EmailAddress}'
