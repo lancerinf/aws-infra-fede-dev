@@ -12,6 +12,33 @@ Resources:
         - Key: "cost-center"
           Value: "lancerin.com"
 
+  LancerinComRsGroup:
+    Type: AWS::Route53::RecordSetGroup
+    Properties:
+      Comment: All records necessary to verify the lancerin.com R53 setup with SES.
+      HostedZoneId: !Ref LancerinComHz
+      RecordSets:
+      - Name: _amazonses.lancerin.com
+        Type: TXT
+        TTL: '86400'
+        ResourceRecords:
+          - "\"oirEBLXuWgPN/VV+BI1862RcwGi4UJuzxbZmcmMLu4E=\""
+      - Name: 3q2sfelukswmg42pzbxixzdplxgmyyng._domainkey.lancerin.com
+        Type: CNAME
+        TTL: '86400'
+        ResourceRecords:
+          - 3q2sfelukswmg42pzbxixzdplxgmyyng.dkim.amazonses.com
+      - Name: knysavpc2hfoafhycareasfny3nr7exl._domainkey.lancerin.com
+        Type: CNAME
+        TTL: '86400'
+        ResourceRecords:
+          - knysavpc2hfoafhycareasfny3nr7exl.dkim.amazonses.com
+      - Name: lancerin.com
+        Type: MX
+        TTL: '86400'
+        ResourceRecords:
+          - 10 inbound-smtp.eu-west-1.amazonaws.com
+
 Outputs:
   LancerinComHzId:
     Description: Hosted Zone Id for lancerin.com
