@@ -20,22 +20,27 @@ Resources:
       RecordSets:
       - Name: _amazonses.lancerin.com
         Type: TXT
-        TTL: '86400'
+        TTL: '60'
         ResourceRecords:
           - "\"oirEBLXuWgPN/VV+BI1862RcwGi4UJuzxbZmcmMLu4E=\""
       - Name: 3q2sfelukswmg42pzbxixzdplxgmyyng._domainkey.lancerin.com
         Type: CNAME
-        TTL: '86400'
+        TTL: '60'
         ResourceRecords:
           - 3q2sfelukswmg42pzbxixzdplxgmyyng.dkim.amazonses.com
       - Name: knysavpc2hfoafhycareasfny3nr7exl._domainkey.lancerin.com
         Type: CNAME
-        TTL: '86400'
+        TTL: '60'
         ResourceRecords:
           - knysavpc2hfoafhycareasfny3nr7exl.dkim.amazonses.com
+      - Name: bejhqygjzkhtu3qmc75nnqocvkykhetz._domainkey.lancerin.com
+        Type: CNAME
+        TTL: '60'
+        ResourceRecords:
+          - bejhqygjzkhtu3qmc75nnqocvkykhetz.dkim.amazonses.com
       - Name: lancerin.com
         Type: MX
-        TTL: '86400'
+        TTL: '60'
         ResourceRecords:
           - 10 inbound-smtp.eu-west-1.amazonaws.com
 
