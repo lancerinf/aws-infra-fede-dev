@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: This contains the DNS setup for lancerin.com
+
+Resources:
+  LancerinComHz:
+    Type: AWS::Route53::HostedZone
+    Properties:
+      Name: lancerin.com
+      HostedZoneConfig:
+        Comment: Hosted zone for lancerin.com
+      HostedZoneTags:
+        - Key: "cost-center"
+          Value: "lancerin.com"
+
+Outputs:
+  LancerinComHzId:
+    Description: Hosted Zone Id for lancerin.com
+    Value: !Ref LancerinComHz
+    Export: 
+      Name: !Sub '${AWS::StackName}-LancerinComHzId'
+
+  LancerinComHzName:
+    Description: Hosted Zone Name for lancerin.com
+    Value: lancerin.com
+    Export: 
+      Name: !Sub '${AWS::StackName}-LancerinComHzName'
