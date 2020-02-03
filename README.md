@@ -1,2 +1,2 @@
 # infra-fede-aws
-This contains the infrastructure as code definitions for my AWS account.
+This repository contains the infra-as-code definition of the infrastructure deployed in my AWS account.
