@@ -1,0 +1,7 @@
+- setup R53 to control new domain.
+- verify SES domain by adding TXT, CNAME and MX records provided by SES to R53.
+- create s3 bucket + policy that allows SES to put things in it.
+- create receipt rule to put email in s3.
+- create smtp user, create custom policy to limit sending from a specific address.
+- create lambda-mailer
+- create s3 notification to lambda

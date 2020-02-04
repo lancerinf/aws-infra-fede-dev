@@ -13,14 +13,16 @@ Resources:
           - Id: Remove mail older than 30 days
             ExpirationInDays: 30
             Status: Enabled
+      # NotificationConfiguration can only be added when lambda ia already created (duh!)
       NotificationConfiguration:
         LambdaConfigurations:
-          - Event: s3:ObjectCreated:*
+          - Event: s3:ObjectCreated:Put
             Filter:
               S3Key:
                 Rules:
+                  # Special characters like @ need percent-encoding
                   - Name: prefix
-                    Value: inbox/federico@lancerin.com/
+                    Value: inbox/federico%40lancerin.com/
             Function: !ImportValue lambda-mail-forwarder-MailForwarderArn
       Tags:
         - Key: cost-center
