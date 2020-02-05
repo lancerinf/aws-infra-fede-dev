@@ -43,6 +43,12 @@ Resources:
         TTL: '60'
         ResourceRecords:
           - 10 inbound-smtp.eu-west-1.amazonaws.com
+      - Name: lancerin.com
+        Type: TXT
+        TTL: '3600'
+        ResourceRecords:
+          - "\"v=spf1 include:amazonses.com ~all\""
+
 
 Outputs:
   LancerinComHzId:
