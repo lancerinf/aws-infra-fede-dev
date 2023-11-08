@@ -12,6 +12,7 @@ Resources:
         Rules:
           - Id: Remove mail older than 30 days
             ExpirationInDays: 30
+            Prefix: inbox
             Status: Enabled
       # NotificationConfiguration can only be added when lambda ia already created (duh!)
       NotificationConfiguration:
